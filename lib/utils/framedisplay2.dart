@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:p1/screens/view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'multiText.dart';
@@ -7,6 +8,7 @@ class ProductDisplay2 extends StatelessWidget {
   Uri? abc;
   String? imgAddress;
   String? price;
+  String? availableColors;
   String? title;
   Color? color;
   Color color1;
@@ -19,7 +21,8 @@ class ProductDisplay2 extends StatelessWidget {
       required this.title,
       required this.color,
       required this.color1,
-      required this.color2
+      required this.color2,
+      required this.availableColors
       });
 
   @override
@@ -154,12 +157,12 @@ class ProductDisplay2 extends StatelessWidget {
                                     ),
                                   child: Text( 'Add',style: TextStyle(color: Colors.black,fontSize: 12,fontWeight: FontWeight.bold),),
                                   onPressed: () {
-                                    // Navigator.pushReplacement(context,
-                                    //   MaterialPageRoute(builder:
-                                    //     (context) => 
-                                    //     Login()
-                                    //     )
-                                    //   );
+                                    Navigator.push(context,
+                                      MaterialPageRoute(builder:
+                                        (context) => 
+                                        View(colors: availableColors.toString(), imgAddress: imgAddress.toString(), name: title.toString(), price: price.toString())
+                                        )
+                                      );
                                   },
                                 )
                             ),

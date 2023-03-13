@@ -1,13 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:material_dialogs/dialogs.dart';
+import 'package:material_dialogs/widgets/buttons/icon_button.dart';
+import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
+import 'package:p1/kids.dart';
+import 'package:p1/screens/cart.dart';
 import 'package:p1/screens/men.dart';
 import 'package:p1/utils/cate.dart';
 import 'package:p1/utils/framedisplay.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:p1/utils/multiText.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../men.dart';
+import '../provider/provider1.dart';
+import '../utils/multi2.dart';
 import '../utils/slider.dart';
+import '../women.dart';
 
 class LandingPage extends StatelessWidget {
   
@@ -15,123 +25,287 @@ class LandingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Uri _url1 = Uri.parse('https://192.168.1.111:8501/a');
-    Uri _url2 = Uri.parse('http://localhost:8501/b');
-    Uri _url3 = Uri.parse('http://localhost:8501/c');
-    Uri _url4 = Uri.parse('http://localhost:8501/d');
-    Uri _url5 = Uri.parse('http://localhost:8501/a');
-    Uri _url6 = Uri.parse('http://localhost:8501/a');
-    Uri _url7 = Uri.parse('http://localhost:8501/a');
-    Uri _url8 = Uri.parse('http://localhost:8501/a');
-    Uri _url9 = Uri.parse('http://localhost:8501/a');
-    Uri _url10 = Uri.parse('http://localhost:8501/a');
+    
+final Provider11 = Provider.of<Provider1>(context);
+    Uri _url1 = Uri.parse('http://localhost:8501/2');
+    Uri _url2 = Uri.parse('http://localhost:8501/6');
+    Uri _url3 = Uri.parse('http://localhost:8501/02');
+    Uri _url4 = Uri.parse('http://localhost:8501/3');
+    Uri _url5 = Uri.parse('http://localhost:8501/03');
+
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Container(
        
         child: Scaffold(
+         
+  floatingActionButton: GestureDetector(
+          onTap: () {
+         showDialog(
+          
+                context: context,
+                builder: (ctx) => Container(
+                 
+                  height: 100,
+                  width: 100,
+                  child: AlertDialog(
+                    title: Multi(color: Colors.white, subtitle: "Your Cart", weight: FontWeight.bold, size: 16),
+                    content: Provider11.items_in_cart!.isEmpty==true?
+                    Multi(color: Colors.red, subtitle: "Nothing in item", weight: FontWeight.bold, size: 12):
+                    
+                    Container(
+                      
+                      width: 200 ,height: 200,
+                      child: Expanded(
+                        child: ListView.builder(
+                                      itemCount: Provider11.items_in_cart!.length,
+                                      itemBuilder: (BuildContext ctx, index) {
+                                        return Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Expanded(
+                                        flex: 2,
+                                        child: Container(
+                                          height: 70,
+                                          width: 70,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(20),
+                                            color: Colors.white,
+                                            image: DecorationImage(
+                        
+                                              image: AssetImage(Provider11
+                                                  .items_in_cart![index].imgAddress),
+                                              fit: BoxFit.contain,
+                                            ),
+                                          ),
+                                        )),
+                                        Expanded(
+                                          flex: 4,
+                                          child: Container(
+                                            child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.spaceBetween,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    children: [
+                                                      Multi(
+                                                          color: Colors.black,
+                                                          subtitle:
+                                                              "${Provider11.items_in_cart![index].title.length > 10 ? Provider11.items_in_cart![index].title.substring(0, 11) + "..." : Provider11.items_in_cart![index].title}",
+                                                          weight: FontWeight.bold,
+                                                          size: 12),
+                                                      Multi(
+                                                          color: Colors.grey,
+                                                          subtitle:
+                                                              "${Provider11.items_in_cart![index].title.length > 10 ? Provider11.items_in_cart![index].title.substring(0, 11) + "..." : Provider11.items_in_cart![index].title}",
+                                                          weight: FontWeight.bold,
+                                                          size: 12),
+                                                      Multi(
+                                                          color: Colors.black,
+                                                          subtitle:
+                                                              "Rs ${double.parse(Provider11.items_in_cart![index].eachCost.toString())}",
+                                                          weight: FontWeight.w900,
+                                                          size: 10),
+                                                    ],
+                                                  ),
+                                          ) ,
+                                        )
+                                        ]);
+                                      }),
+                      ),
+                    )
+                    ,
+                    actions: <Widget>[
+                   ElevatedButton(
+                    onPressed: () {
+                     
+                                                           Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => CartPage()));
+                    },
+                    child: Multi(color: Colors.white, subtitle: "Proceed", weight: FontWeight.normal, size: 16),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      side: BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                      backgroundColor:Color(0xff2032EB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                    child: Multi(color: Colors.white, subtitle: "Back", weight: FontWeight.normal, size: 16),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      side: BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                      backgroundColor:Color(0xff2032EB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
+                  ),
+                    ],
+                  ),
+                ),
+              );
+          },
+          child: Align(
+            alignment: Alignment.bottomRight,
+            child: CircleAvatar(
+              radius: 25,
+              child: Stack(
+                children: [
+                  CircleAvatar(
+                      radius: 60,
+                      backgroundColor: Colors.white,
+                      child: Image.asset("assets/cart4.png",
+                          height: 60, width: 60)),
+                  Align(
+                      alignment: Alignment.topRight,
+                      child: CircleAvatar(
+                        backgroundColor: Colors.amber,
+                        radius: 8,
+                        child: Multi(
+                            color: Colors.white,
+                            subtitle: "${Provider11.itemLength}",
+                            weight: FontWeight.w800,
+                            size: 10),
+                      )),
+                ],
+              ),
+            ),
+          ),
+        ),
           appBar: AppBar(
-            leading: Container(height: 200,width: 200, child: Image.asset("assets/logo2.png")),
-            backgroundColor: Colors.white,
-            title: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              ElevatedButton(
-                onPressed: () {},
-                child: Multi(color: Color.fromARGB(255, 110, 14, 7), subtitle: "HOME", weight: FontWeight.normal, size: 16),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20),
-                  side: BorderSide(
-                    color: Color.fromARGB(255, 110, 14, 7),
-                    width: 1,
+             iconTheme: const IconThemeData(
+              size: 40, //change size on your need
+              color: Colors.black, //change color on your need
+            ),
+             actions:[ IconButton(
+          icon: Icon(Icons.card_travel),
+          onPressed: () => Scaffold.of(context).openDrawer(),
+        ),],
+              
+                        backgroundColor: Colors.white,
+            title: Column(
+              children: [
+               
+                Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Multi(color: Color(0xff2032EB), subtitle: "HOME", weight: FontWeight.normal, size: 16),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      side: BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                      backgroundColor:Colors.white,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
                   ),
-                  backgroundColor:Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                  SizedBox(
+                    width: 20,
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                   Navigator.pushReplacement(
-                                      context, MaterialPageRoute(builder: (context) => Men()));
-                },
-                child: Multi(color: Colors.white, subtitle: "MEN SECTION", weight: FontWeight.normal, size: 16),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20),
-                  side: BorderSide(
-                    color: Colors.white,
-                    width: 1,
+                  ElevatedButton(
+                    onPressed: () {
+                       Navigator.push(
+                                          context, MaterialPageRoute(builder: (context) => Men1()));
+                    },
+                    child: Multi(color: Colors.white, subtitle: "MEN SECTION", weight: FontWeight.normal, size: 16),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      side: BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                      backgroundColor:Color(0xff2032EB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
                   ),
-                  backgroundColor:Color.fromARGB(255, 110, 14, 7),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                  SizedBox(
+                    width: 20,
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-               ElevatedButton(
-                onPressed: () {},
-                child: Multi(color: Colors.white, subtitle: "WOMEN", weight: FontWeight.normal, size: 16),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20),
-                  side: BorderSide(
-                    color: Colors.white,
-                    width: 1,
+                   ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                                          context, MaterialPageRoute(builder: (context) => Women()));
+                    },
+                    child: Multi(color: Colors.white, subtitle: "WOMEN", weight: FontWeight.normal, size: 16),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      side: BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                      backgroundColor:Color(0xff2032EB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
                   ),
-                  backgroundColor:Color.fromARGB(255, 110, 14, 7),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                  SizedBox(
+                    width: 20,
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-               ElevatedButton(
-                onPressed: () {},
-                child: Multi(color: Colors.white, subtitle: "KIDS", weight: FontWeight.normal, size: 16),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20),
-                  side: BorderSide(
-                    color: Colors.white,
-                    width: 1,
+                   ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                                          context, MaterialPageRoute(builder: (context) => Kids()));
+                    },
+                    child: Multi(color: Colors.white, subtitle: "KIDS", weight: FontWeight.normal, size: 16),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      side: BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                      backgroundColor:Color(0xff2032EB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
                   ),
-                  backgroundColor:Color.fromARGB(255, 110, 14, 7),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                  SizedBox(
+                    width: 20,
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-               ElevatedButton(
-                onPressed: () {},
-                child: Multi(color: Colors.white, subtitle: "SUN GLASSES", weight: FontWeight.normal, size: 16),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.all(20),
-                  side: BorderSide(
-                    color: Colors.white,
-                    width: 1,
+                   ElevatedButton(
+                    onPressed: () {},
+                    child: Multi(color: Colors.white, subtitle: "SUN GLASSES", weight: FontWeight.normal, size: 16),
+                    style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      side: BorderSide(
+                        color: Colors.white,
+                        width: 1,
+                      ),
+                      backgroundColor:Color(0xff2032EB),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(5),
+                      ),
+                    ),
                   ),
-                  backgroundColor:Color.fromARGB(255, 110, 14, 7),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5),
+                  SizedBox(
+                    width: 20,
                   ),
-                ),
-              ),
-              SizedBox(
-                width: 20,
-              ),
-            ]),
+                ]),
+              ],
+            ),
           ),
           body: ListView(
             children: [
+
               Slider23(),
               SizedBox(
                 width: 200.0,
@@ -187,7 +361,7 @@ class LandingPage extends StatelessWidget {
                     children: [
                       ProductDisplay(
                         abc: _url1,
-                        imgAddress: "assets/a.png",
+                        imgAddress: "assets/images/2.png",
                         price: "2,200",
                         title: "Frame 1",
                         color: Colors.pink.withOpacity(0.3),
@@ -196,7 +370,7 @@ class LandingPage extends StatelessWidget {
                       ),
                       ProductDisplay(
                         abc: _url2,
-                        imgAddress: "assets/b.png",
+                        imgAddress: "assets/images/6.png",
                         price: "1,200",
                         title: "Frame 1",
                         color: Colors.red.withOpacity(0.3),
@@ -205,7 +379,7 @@ class LandingPage extends StatelessWidget {
                       ),
                       ProductDisplay(
                         abc: _url3,
-                        imgAddress: "assets/c.png",
+                        imgAddress: "assets/images/02.png",
                         price: "3,200",
                         title: "Frame 1",
                         color: Colors.blue.withOpacity(0.3),
@@ -214,7 +388,7 @@ class LandingPage extends StatelessWidget {
                       ),
                       ProductDisplay(
                         abc: _url4,
-                        imgAddress: "assets/d.png",
+                        imgAddress: "assets/images/3.png",
                         price: "5,200",
                         title: "Frame 1",
                         color: Colors.yellow.withOpacity(0.3),
@@ -223,7 +397,7 @@ class LandingPage extends StatelessWidget {
                       ),
                       ProductDisplay(
                         abc: _url5,
-                        imgAddress: "assets/e.png",
+                        imgAddress: "assets/images/03.png",
                         price: "2,200",
                         title: "Frame 1",
                         color: Colors.pink.withOpacity(0.3),
@@ -327,7 +501,10 @@ class LandingPage extends StatelessWidget {
                                     height: 48,
                                     width: 90,
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                                           Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => Men1()));
+                                      },
                                       child: Text("Men Wearing"),
                                       style: ButtonStyle(
                                         backgroundColor:
@@ -362,7 +539,10 @@ class LandingPage extends StatelessWidget {
                                     height: 48,
                                     width: 90,
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                                           Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => Women()));
+                                      },
                                       child: Text("Women Wearing"),
                                       style: ButtonStyle(
                                         backgroundColor:
@@ -397,7 +577,10 @@ class LandingPage extends StatelessWidget {
                                     height: 48,
                                     width: 90,
                                     child: ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                                           Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => Kids()));
+                                      },
                                       child: Text("Kids Wearing"),
                                       style: ButtonStyle(
                                         backgroundColor:
@@ -414,6 +597,7 @@ class LandingPage extends StatelessWidget {
               )
             ],
           ),
+          
         ),
       ),
     );
