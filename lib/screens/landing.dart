@@ -6,6 +6,7 @@ import 'package:material_dialogs/widgets/buttons/icon_outline_button.dart';
 import 'package:p1/kids.dart';
 import 'package:p1/screens/cart.dart';
 import 'package:p1/screens/men.dart';
+import 'package:p1/screens/sunglasses.dart';
 import 'package:p1/utils/cate.dart';
 import 'package:p1/utils/framedisplay.dart';
 import 'package:provider/provider.dart';
@@ -282,7 +283,11 @@ final Provider11 = Provider.of<Provider1>(context);
                     width: 20,
                   ),
                    ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      
+                                                           Navigator.push(
+                                      context, MaterialPageRoute(builder: (context) => SunGlasses()));
+                    },
                     child: Multi(color: Colors.white, subtitle: "SUN GLASSES", weight: FontWeight.normal, size: 16),
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.all(20),
